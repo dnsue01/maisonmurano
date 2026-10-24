@@ -41,11 +41,11 @@ export function AddToCart({
     <>
       <div className="mt-4 flex items-baseline gap-3">
         {product.compareAtPrice && (
-          <span className="tabular text-lg text-smoke line-through">
+          <span className="text-lg text-muted-foreground line-through">
             {money(product.compareAtPrice.amount)}
           </span>
         )}
-        <span className="tabular text-3xl font-semibold text-mustard">
+        <span className="text-2xl font-semibold">
           {isGiftCard && !variant
             ? t("from", { price: money(price.amount) })
             : money(price.amount)}
@@ -57,16 +57,16 @@ export function AddToCart({
       <div className="mt-8 flex flex-col gap-4">
         <div>
           <div className="mb-2 flex items-center justify-between">
-            <span className="font-label text-[13px]">
+            <span className="text-sm font-semibold uppercase">
               {isGiftCard ? t("amount") : t("size")}
             </span>
             {!isGiftCard && sizeGuide && (
               <Dialog>
-                <DialogTrigger className="text-[13px] text-smoke underline underline-offset-4 hover:text-paper">
+                <DialogTrigger className="text-xs text-muted-foreground underline">
                   {t("sizeGuide")}
                 </DialogTrigger>
                 <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-2xl">
-                  <DialogTitle className="font-display text-4xl">
+                  <DialogTitle className="font-display text-3xl uppercase">
                     {t("sizeGuide")}
                   </DialogTitle>
                   <div className="shopify-rte" dangerouslySetInnerHTML={{ __html: sizeGuide }} />
@@ -84,12 +84,12 @@ export function AddToCart({
                   setError(false);
                 }}
                 className={cn(
-                  "font-label h-11 min-w-12 border px-3 text-[13px] transition-colors",
+                  "min-w-12 border px-3 py-2 text-sm font-medium transition-colors",
                   selected === v.id
-                    ? "border-mustard bg-mustard text-ink"
-                    : "border-paper/35 hover:border-paper",
+                    ? "border-ink bg-ink text-cream"
+                    : "border-ink/30 hover:border-ink",
                   !v.available &&
-                    "cursor-not-allowed border-paper/10 text-paper/30 line-through hover:border-paper/10"
+                    "cursor-not-allowed border-ink/10 text-ink/30 line-through hover:border-ink/10"
                 )}
               >
                 {v.title}
@@ -97,7 +97,7 @@ export function AddToCart({
             ))}
           </div>
           {error && (
-            <p className="mt-2 text-[13px] text-mustard" role="alert">
+            <p className="mt-2 text-xs text-tc-red">
               {isGiftCard ? t("selectAmount") : t("selectSize")}
             </p>
           )}
@@ -106,7 +106,6 @@ export function AddToCart({
         <Button
           size="lg"
           disabled={!product.available}
-          className="font-label h-14 w-full rounded-none bg-flash text-[15px] text-paper hover:bg-paper hover:text-ink"
           onClick={() => {
             if (!variant) {
               setError(true);
@@ -114,6 +113,7 @@ export function AddToCart({
             }
             addLine(product, variant);
           }}
+          className="w-full"
         >
           {product.available ? t("addToCart") : t("soldOut")}
         </Button>

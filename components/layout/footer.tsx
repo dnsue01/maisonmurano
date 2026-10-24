@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Wordmark } from "@/components/brand/wordmark";
+import { LogoMark } from "@/components/brand/logo-mark";
 
 // lucide removed brand glyphs (trademark); inline all social marks.
 function Instagram() {
@@ -63,12 +64,12 @@ export function Footer() {
   ];
 
   return (
-    <footer className="border-t border-paper/10 bg-wall text-paper">
+    <footer className="bg-ink text-cream">
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-6">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           <div className="col-span-2 md:col-span-1">
-            <Wordmark stacked className="text-6xl text-paper" />
-            <p className="font-display mt-3 text-2xl text-flash">A dream in motion</p>
+            <LogoMark className="mb-4 h-14 w-14 text-cream" />
+            <Wordmark stacked className="text-4xl text-cream" />
             <div className="mt-6 flex gap-4">
               {SOCIALS.map(({ href, label, Icon }) => (
                 <a
@@ -77,7 +78,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="transition-colors hover:text-mustard"
+                  className="transition-colors hover:text-khaki"
                 >
                   <Icon />
                 </a>
@@ -87,7 +88,7 @@ export function Footer() {
 
           {cols.map((col) => (
             <div key={col.title}>
-              <h3 className="font-label mb-4 text-[12px] text-smoke">
+              <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-cream/60">
                 {col.title}
               </h3>
               <ul className="flex flex-col gap-2">
@@ -95,7 +96,7 @@ export function Footer() {
                   <li key={l.href}>
                     <Link
                       href={l.href}
-                      className="text-sm text-paper/90 transition-colors hover:text-mustard"
+                      className="text-sm text-cream/90 transition-colors hover:text-khaki"
                     >
                       {l.label}
                     </Link>
@@ -106,25 +107,25 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-paper/10 pt-6 text-xs text-smoke md:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-cream/15 pt-6 text-xs text-cream/50 md:flex-row">
           <p>© {new Date().getFullYear()} Maison Murano. {t("rights")}</p>
           <p>From the room to the world</p>
         </div>
 
-        <p className="mt-4 text-center text-xs text-smoke">
+        <p className="mt-4 text-center text-xs text-cream/50">
           {t("proposal")}{" "}
           <a
             href="https://dnsue01.github.io/portfolio/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-semibold text-paper/85 underline-offset-4 hover:text-mustard hover:underline"
+            className="font-semibold text-cream/80 underline-offset-4 hover:text-khaki hover:underline"
           >
             Daniel Nsue
           </a>
           {" · "}
           <a
             href="mailto:nsuedawebs@gmail.com"
-            className="text-paper/85 underline-offset-4 hover:text-mustard hover:underline"
+            className="text-cream/80 underline-offset-4 hover:text-khaki hover:underline"
           >
             nsuedawebs@gmail.com
           </a>

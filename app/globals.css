@@ -8,22 +8,29 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-archivo);
-  --font-narrow: var(--font-archivo-narrow);
-  --font-heading: var(--font-blackletter);
+    --font-heading: var(--font-varsity);
 
-  /* Maison Murano — tattoo flash world */
-  --color-wall: #0e0c0b;
-  --color-wall-2: #191513;
-  --color-paper: #ebe2cc;
-  --color-paper-2: #ddd2b8;
-  --color-ink: #16110d;
-  --color-flash: #b8261b;
-  --color-bottle: #1f5a3e;
-  --color-mustard: #dca52b;
-  --color-smoke: #a39a8f;
-  /* legacy aliases used by shadcn pieces */
-  --color-cream: #ebe2cc;
-  --color-tc-red: #b8261b;
+  /* Maison Murano palette, sampled from the Tiger Camo hoodie */
+  --color-cream: #eeebe3; /* bone ground */
+  --color-ink: #151512;
+  --color-olive: #3c4a2e; /* camo green */
+  --color-olive-deep: #26301d;
+  --color-khaki: #b4a47c; /* camo sand */
+  --color-rust: #8f3a1f; /* camo brown stripe */
+  --color-tc-red: #3c4a2e; /* accent role, mapped to camo green */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -44,29 +51,32 @@
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 :root {
-  --background: #0e0c0b;
-  --foreground: #ebe2cc;
-  --card: #191513;
-  --card-foreground: #ebe2cc;
-  --popover: #191513;
-  --popover-foreground: #ebe2cc;
-  --primary: #b8261b;
-  --primary-foreground: #f6efdc;
-  --secondary: #191513;
-  --secondary-foreground: #ebe2cc;
-  --muted: #191513;
-  --muted-foreground: #a39a8f;
-  --accent: #dca52b;
-  --accent-foreground: #16110d;
-  --destructive: #e0543f;
-  --border: rgba(235, 226, 204, 0.16);
-  --input: rgba(235, 226, 204, 0.28);
-  --ring: #dca52b;
+  --background: #eeebe3;
+  --foreground: #151512;
+  --card: #eeebe3;
+  --card-foreground: #151512;
+  --popover: #eeebe3;
+  --popover-foreground: #151512;
+  --primary: #151512;
+  --primary-foreground: #eeebe3;
+  --secondary: #e1ddd1;
+  --secondary-foreground: #151512;
+  --muted: #e1ddd1;
+  --muted-foreground: #5f5b52;
+  --accent: #3c4a2e;
+  --accent-foreground: #eeebe3;
+  --destructive: #8f3a1f;
+  --border: #d3cdbf;
+  --input: #d3cdbf;
+  --ring: #3c4a2e;
   --radius: 0rem;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @layer base {
@@ -80,52 +90,29 @@
     @apply font-sans;
   }
   ::selection {
-    background: var(--color-flash);
-    color: var(--color-paper);
-  }
-  input,
-  textarea {
-    caret-color: var(--color-mustard);
+    background: var(--color-olive);
+    color: var(--color-cream);
   }
   :focus-visible {
-    outline: 2px solid var(--color-mustard);
+    outline: 2px solid var(--color-olive);
     outline-offset: 3px;
-  }
-  html {
-    scrollbar-color: #3a322c var(--color-wall);
   }
 }
 
 @layer components {
+  /* Varsity block lettering, as sewn on the back of the Tiger Camo hoodie */
   .font-display {
     font-family: var(--font-heading), serif;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 0.92;
-    text-transform: none;
-  }
-  .font-label {
-    font-family: var(--font-narrow), var(--font-archivo), sans-serif;
-    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 0.95;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
   }
-  .tabular {
-    font-variant-numeric: tabular-nums;
-  }
-  /* Flash paper: faint grain + double drawn border */
-  .flash-paper {
-    background-color: var(--color-paper);
-    color: var(--color-ink);
-    /* Paper fibre: fractal noise, multiplied over the stock colour */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0 0.05 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-  .flash-frame {
-    border: 2px solid var(--color-ink);
-    box-shadow: inset 0 0 0 4px var(--color-paper), inset 0 0 0 5px var(--color-ink);
-  }
-  .sheet-shadow {
-    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.75), 0 8px 18px -6px rgba(0, 0, 0, 0.55);
+  /* Secondary line under headings (TIER CLUB's script line, in the brand's voice) */
+  .font-script {
+    font-family: var(--font-archivo), sans-serif;
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -215,7 +202,9 @@
     font-weight: 700;
   }
   /* Logo lockups render red per brand direction */
-  .shopify-rte { color: var(--color-smoke); }
+  .logo-red {
+    color: var(--color-olive);
+  }
 }
 
 /* Marquee for the announcement bar */
@@ -243,36 +232,7 @@
 .animate-tc-spin {
   animation: tc-spin 2.4s linear infinite;
 }
-/* Signature motion: the flash sheet gets pinned to the wall */
-@keyframes mm-pin {
-  from {
-    opacity: 0;
-    transform: translateY(36px) rotate(-2.4deg);
-    filter: blur(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) rotate(var(--tilt, -0.6deg));
-    filter: blur(0);
-  }
-}
-.animate-pin {
-  transform: rotate(var(--tilt, -0.6deg));
-  animation: mm-pin 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-/* "Picked" stamp when a piece goes to the cart */
-@keyframes mm-stamp {
-  0% { opacity: 0; transform: translate(-50%, -50%) rotate(-14deg) scale(1.8); }
-  35% { opacity: 1; transform: translate(-50%, -50%) rotate(-14deg) scale(0.94); }
-  60% { transform: translate(-50%, -50%) rotate(-14deg) scale(1); }
-  100% { opacity: 0; transform: translate(-50%, -50%) rotate(-14deg) scale(1); }
-}
-.animate-stamp {
-  animation: mm-stamp 1.3s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
 @media (prefers-reduced-motion: reduce) {
-  .animate-pin,
-  .animate-stamp,
   .animate-marquee,
   .animate-tc-spin {
     animation: none !important;

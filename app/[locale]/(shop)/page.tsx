@@ -1,20 +1,18 @@
 import Image from "next/image";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { designNumbers, shopify } from "@/lib/shopify";
+import { shopify } from "@/lib/shopify";
 import { editorialPhotos } from "@/lib/photos";
 import { REVIEWS, REVIEW_COUNT } from "@/lib/reviews";
-import { ProductCard } from "@/components/product/product-card";
+import { Button } from "@/components/ui/button";
+import { LogoMark } from "@/components/brand/logo-mark";
+import { ArchedWordmark } from "@/components/brand/wordmark";
+import { ProductGrid } from "@/components/product/product-grid";
 import { Newsletter } from "@/components/layout/newsletter";
-import { BrandBreak } from "@/components/layout/video-break";
+import { SpinningLogoSection } from "@/components/layout/video-break";
 import { Lookbook } from "@/components/layout/lookbook";
-import { Wordmark } from "@/components/brand/wordmark";
-import { Ribbon } from "@/components/brand/ribbon";
-import { Tack } from "@/components/brand/tack";
-import { Cross } from "@/components/brand/cross";
-
-// Campaign banner uploaded to the brand's Shopify files.
-const HERO = "https://maisonmurano.es/cdn/shop/files/banner_shopi_camis.jpg?v=1790958902";
+import { HeroVideos } from "@/components/layout/hero-videos";
+import { Vlogs } from "@/components/layout/vlogs";
 
 export default async function HomePage({
   params,
@@ -24,148 +22,111 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home");
-  const tp = await getTranslations("product");
   const products = await shopify.getProducts().catch(() => []);
-  const numbers = designNumbers(products);
-  const available = products.filter((p) => p.available);
-  const archive = products.filter((p) => !p.available);
+  // Available pieces first, then the sold-out archive.
+  const ordered = [...products.filter((p) => p.available), ...products.filter((p) => !p.available)];
+  const featured = ordered.slice(0, 4);
   const photos = editorialPhotos(products);
-  const collage = photos.slice(0, 3);
+  const collage = photos.slice(2, 5);
 
   return (
     <>
-      {/* HERO — campaign photo, tattoo-lettered wordmark */}
-      <section className="relative overflow-hidden bg-wall">
-        <div className="relative h-[60svh] min-h-[420px] md:h-[74svh]">
-          <Image src={HERO} alt={t("heroAlt")} fill priority sizes="100vw" className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-wall/30 via-wall/20 to-wall" />
-          <div className="absolute inset-x-0 bottom-24 flex flex-col items-center px-4 text-center md:bottom-40">
-            <h1>
-              <Wordmark className="text-[clamp(4rem,15vw,11.5rem)] text-paper drop-shadow-[0_6px_28px_rgba(0,0,0,0.7)]" />
-            </h1>
-            <Ribbon className="mt-3 -rotate-1">{t("motto")}</Ribbon>
-          </div>
-        </div>
-
-        {/* THE FLASH SHEET — the drop, pinned to the wall */}
-        <div id="drop" className="relative z-10 mx-auto -mt-16 max-w-6xl scroll-mt-24 px-3 pb-20 md:-mt-28 md:px-6 md:pb-28">
-          <div className="animate-pin flash-paper sheet-shadow relative px-4 pb-8 pt-10 [--tilt:-0.5deg] md:px-10 md:pb-12 md:pt-14">
-            <Tack className="absolute left-4 top-3 md:left-6" />
-            <Tack className="absolute right-4 top-3 md:right-6" />
-
-            <div className="mb-8 flex flex-col gap-3 border-b-2 border-ink pb-5 md:mb-10 md:flex-row md:items-end md:justify-between">
-              <div>
-                <h2 className="font-display text-[clamp(3rem,8vw,5.5rem)] text-ink">{t("sheetTitle")}</h2>
-                <p className="mt-1 max-w-md text-[15px] text-ink/75">{t("sheetNote")}</p>
-              </div>
-              <p className="font-label tabular flex items-center gap-2 text-[13px] text-flash">
-                <Cross className="h-4 w-3" />
-                {tp("pieces", { count: available.length })}
-              </p>
-            </div>
-
-            {available.length > 0 ? (
-              <div className="grid grid-cols-2 gap-x-3 gap-y-8 md:grid-cols-4 md:gap-x-6">
-                {available.map((p, i) => (
-                  <ProductCard key={p.id} product={p} n={numbers[p.handle]} quickAdd tone="paper" priority={i < 2} />
-                ))}
-              </div>
-            ) : (
-              <p className="py-10 text-center text-ink/75">{t("sheetEmpty")}</p>
-            )}
-
-            <div className="mt-10 text-center">
-              <Link
-                href="/productos"
-                className="font-label inline-flex h-12 items-center border-2 border-ink px-7 text-[13px] text-ink transition-colors hover:bg-ink hover:text-paper"
-              >
-                {t("viewAll")}
-              </Link>
-            </div>
-          </div>
+      {/* HERO — the brand's own Shorts looping behind the varsity wordmark */}
+      <section className="relative overflow-hidden border-b border-ink bg-ink text-cream">
+        <HeroVideos />
+        <div className="absolute inset-0 bg-ink/45" />
+        <div className="relative mx-auto flex min-h-[88vh] max-w-7xl flex-col items-center justify-center px-4 py-20 text-center">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.4em] text-cream/75">{t("heroTagline")}</p>
+          <h1 className="w-full max-w-4xl">
+            <ArchedWordmark className="text-cream drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)]" />
+          </h1>
+          <LogoMark className="-mt-[6%] h-16 w-16 text-cream md:h-24 md:w-24" />
+          <p className="font-script mt-6 text-3xl text-cream md:text-4xl">{t("heroSubtitle")}</p>
+          <Button asChild size="lg" className="mt-9 h-12 bg-cream px-8 text-ink hover:bg-khaki">
+            <Link href="/productos">{t("heroCta")}</Link>
+          </Button>
         </div>
       </section>
 
-      {/* LOOKBOOK — their own on-model photography */}
-      <Lookbook title={t("lookbookTitle")} photos={photos} />
-
-      {/* ARCHIVE — sold-out designs as proof of scarcity */}
-      {archive.length > 0 && (
-        <section className="border-y border-paper/10 bg-wall-2 py-20 md:py-28">
-          <div className="mx-auto max-w-7xl px-4 md:px-6">
-            <div className="mb-10 grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
-              <h2 className="font-display text-6xl md:text-8xl">{t("archiveTitle")}</h2>
-              <p className="max-w-sm text-[15px] text-smoke">{t("archiveText")}</p>
-            </div>
-            <div className="grid grid-cols-2 gap-x-3 gap-y-9 sm:grid-cols-3 md:gap-x-5 lg:grid-cols-6">
-              {archive.map((p) => (
-                <ProductCard key={p.id} product={p} n={numbers[p.handle]} />
-              ))}
-            </div>
+      {/* FEATURED */}
+      <section className="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-24">
+        <div className="mb-10 flex items-end justify-between gap-4">
+          <div>
+            <h2 className="font-display text-5xl md:text-7xl">{t("featuredTitle")}</h2>
+            <p className="font-script mt-2 text-2xl text-olive md:text-3xl">{t("featuredSubtitle")}</p>
           </div>
-        </section>
-      )}
-
-      <BrandBreak line1={t("breakLine1")} line2={t("breakLine2")} cta={t("breakCta")} />
-
-      {/* REVIEWS — real Judge.me reviews */}
-      <section className="py-20 md:py-28">
-        <div className="mx-auto mb-10 flex max-w-7xl items-end justify-between gap-6 px-4 md:px-6">
-          <h2 className="font-display text-6xl md:text-8xl">{t("reviewsTitle")}</h2>
-          <p className="font-label tabular shrink-0 text-[13px] text-mustard">{t("reviewsCount", { count: REVIEW_COUNT })}</p>
+          <Link href="/productos" className="hidden text-sm font-semibold uppercase underline underline-offset-4 hover:text-olive md:block">
+            {t("viewAll")}
+          </Link>
         </div>
-        <div className="no-scrollbar flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 md:scroll-px-6 md:px-6">
+        <ProductGrid products={featured} />
+        <div className="mt-10 text-center md:hidden">
+          <Button asChild variant="outline" className="h-11 px-6">
+            <Link href="/productos">{t("viewAll")}</Link>
+          </Button>
+        </div>
+      </section>
+
+      <Lookbook title={t("lookbookTitle")} prevLabel={t("lookbookPrev")} nextLabel={t("lookbookNext")} photos={photos} />
+
+      {/* Chrome cross break */}
+      <SpinningLogoSection title={t("breakTitle")} cta={t("heroCta")} />
+
+      {/* REVIEWS — real Judge.me reviews from maisonmurano.es */}
+      <section className="mx-auto max-w-7xl px-4 py-16 md:px-6 md:py-24">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 className="font-display text-5xl md:text-7xl">{t("reviewsTitle")}</h2>
+            <p className="font-script mt-2 text-2xl text-olive md:text-3xl">{t("reviewsCount", { count: REVIEW_COUNT })}</p>
+          </div>
+        </div>
+        <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 md:mx-0 md:px-0">
           {REVIEWS.map((r) => (
-            <figure
-              key={r.author + r.quote}
-              className="flash-paper flex w-[78vw] shrink-0 snap-start flex-col justify-between p-6 sm:w-[46vw] lg:w-[25vw]"
-            >
+            <figure key={r.author + r.quote} className="flex w-[78vw] shrink-0 snap-start flex-col justify-between border border-ink bg-secondary p-6 sm:w-[46vw] lg:w-[calc(25%-9px)]">
               <div>
-                <div className="flex gap-1 text-flash" aria-label="5/5">
+                <div className="flex gap-1 text-olive" aria-label="5/5">
                   {Array.from({ length: 5 }, (_, i) => (
-                    <Cross key={i} className="h-4 w-3" />
+                    <LogoMark key={i} className="h-4 w-4" />
                   ))}
                 </div>
-                <blockquote className="mt-4 text-[clamp(1.25rem,1.8vw,1.5rem)] font-semibold leading-snug text-ink">
-                  {r.quote}
-                </blockquote>
+                <blockquote className="mt-4 text-lg font-semibold leading-snug">{r.quote}</blockquote>
               </div>
-              <figcaption className="mt-8 flex items-baseline justify-between gap-3 border-t border-ink/20 pt-3">
-                <span className="font-label text-[13px] text-ink">{r.author}</span>
-                <span className="text-[13px] text-ink/65">{r.product}</span>
+              <figcaption className="mt-8 flex items-baseline justify-between gap-3 border-t border-ink/15 pt-3 text-xs">
+                <span className="font-bold uppercase tracking-wide">{r.author}</span>
+                <span className="text-muted-foreground">{r.product}</span>
               </figcaption>
             </figure>
           ))}
         </div>
       </section>
 
+      {/* VLOGS — the founder's YouTube */}
+      <Vlogs title={t("vlogsTitle")} subtitle={t("vlogsSubtitle")} cta={t("vlogsCta")} />
+
       {/* ABOUT teaser */}
-      <section className="border-t border-paper/10 px-4 py-20 md:px-6 md:py-28">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-2 md:gap-16">
+      <section className="border-y border-ink/15 bg-secondary px-4 py-20 md:px-6 md:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-2">
           {collage.length === 3 && (
             <div className="grid grid-cols-2 gap-3">
-              <div className="relative col-span-2 aspect-[16/10] overflow-hidden bg-wall-2">
+              <div className="relative col-span-2 aspect-[16/10] overflow-hidden border border-ink">
                 <Image src={collage[0].src} alt={collage[0].alt} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
               </div>
               {collage.slice(1).map((c) => (
-                <div key={c.src} className="relative aspect-[3/4] overflow-hidden bg-wall-2">
+                <div key={c.src} className="relative aspect-[3/4] overflow-hidden border border-ink">
                   <Image src={c.src} alt={c.alt} fill sizes="(max-width: 768px) 50vw, 25vw" className="object-cover" />
                 </div>
               ))}
             </div>
           )}
-          <div className="max-w-xl">
-            <Cross className="mb-7 h-14 w-10 text-flash" />
-            <h2 className="font-display text-6xl md:text-7xl">{t("aboutTitle")}</h2>
-            <p className="mt-7 text-xl leading-relaxed text-paper/90 md:text-2xl">{t("aboutText")}</p>
-            <p className="mt-4 text-lg leading-relaxed text-smoke">{t("aboutLore")}</p>
-            <p className="font-display mt-7 text-4xl text-mustard">{t("aboutClose")}</p>
-            <Link
-              href="/nosotros"
-              className="font-label mt-9 inline-flex h-12 items-center border-2 border-paper/40 px-7 text-[13px] transition-colors hover:border-mustard hover:bg-mustard hover:text-ink"
-            >
-              {t("aboutCta")}
-            </Link>
+          <div>
+            <LogoMark className="mb-6 h-12 w-12 text-olive" />
+            <h2 className="font-display text-5xl md:text-7xl">{t("aboutTitle")}</h2>
+            <p className="mt-6 text-xl font-semibold leading-snug md:text-2xl">{t("aboutText")}</p>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{t("aboutLore")}</p>
+            <p className="font-script mt-5 text-3xl text-olive">{t("aboutClose")}</p>
+            <Button asChild variant="outline" className="mt-8 h-11 px-6">
+              <Link href="/nosotros">{t("aboutCta")}</Link>
+            </Button>
           </div>
         </div>
       </section>

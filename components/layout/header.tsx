@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Menu, ShoppingBag } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Wordmark } from "@/components/brand/wordmark";
-import { Cross } from "@/components/brand/cross";
+import { LogoMark } from "@/components/brand/logo-mark";
 import { LocaleSwitcher } from "./locale-switcher";
 import { Search } from "./search";
 import { useCart, cartCount } from "@/lib/cart/store";
@@ -32,12 +32,13 @@ export function Header({ searchItems }: { searchItems: SearchItem[] }) {
   }, []);
 
   const links = [
+    { href: "/", label: t("shop") },
     { href: "/productos", label: t("products") },
     { href: "/nosotros", label: t("about") },
   ] as const;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-paper/10 bg-wall/92 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-ink/15 bg-cream/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6">
         {/* Left: mobile menu + nav */}
         <div className="flex items-center gap-6">
@@ -45,7 +46,7 @@ export function Header({ searchItems }: { searchItems: SearchItem[] }) {
             <SheetTrigger className="md:hidden" aria-label={t("menu")}>
               <Menu className="h-6 w-6" />
             </SheetTrigger>
-            <SheetContent side="left" className="border-paper/10 bg-wall text-paper">
+            <SheetContent side="left" className="bg-cream">
               <SheetHeader>
                 <SheetTitle className="sr-only">{t("menu")}</SheetTitle>
               </SheetHeader>
@@ -55,7 +56,7 @@ export function Header({ searchItems }: { searchItems: SearchItem[] }) {
                     key={l.href}
                     href={l.href}
                     onClick={() => setMobileOpen(false)}
-                    className="font-display text-5xl hover:text-flash"
+                    className="font-display text-3xl uppercase"
                   >
                     {l.label}
                   </Link>
@@ -70,7 +71,7 @@ export function Header({ searchItems }: { searchItems: SearchItem[] }) {
               <Link
                 key={l.href}
                 href={l.href}
-                className="font-label text-[13px] transition-colors hover:text-mustard"
+                className="text-sm font-semibold uppercase tracking-wide transition-colors hover:text-tc-red"
               >
                 {l.label}
               </Link>
@@ -84,8 +85,8 @@ export function Header({ searchItems }: { searchItems: SearchItem[] }) {
           className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2"
           aria-label="Maison Murano"
         >
-          <Cross className="h-6 w-4 text-flash" />
-          <Wordmark className="text-[26px] text-paper md:text-3xl" />
+          <LogoMark className="h-7 w-7 text-ink" />
+          <Wordmark className="hidden text-xl text-ink sm:inline" />
         </Link>
 
         {/* Right: locale, search, cart */}
@@ -102,7 +103,7 @@ export function Header({ searchItems }: { searchItems: SearchItem[] }) {
               <span
                 className={cn(
                   "absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center",
-                  "rounded-full bg-flash px-1 text-[10px] font-bold text-paper"
+                  "rounded-full bg-tc-red px-1 text-[10px] font-bold text-cream"
                 )}
               >
                 {count}

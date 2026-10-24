@@ -18,20 +18,12 @@ const archivo = localFont({
   ],
 });
 
-const narrow = localFont({
-  variable: "--font-archivo-narrow",
-  display: "swap",
-  src: [
-    { path: "../fonts/archivo-narrow-latin-500-normal.woff2", weight: "500" },
-    { path: "../fonts/archivo-narrow-latin-600-normal.woff2", weight: "600" },
-    { path: "../fonts/archivo-narrow-latin-700-normal.woff2", weight: "700" },
-  ],
-});
 
-const blackletter = localFont({
-  variable: "--font-blackletter",
+// Varsity block lettering, matching the felt letters on the Tiger Camo hoodie.
+const varsity = localFont({
+  variable: "--font-varsity",
   display: "swap",
-  src: [{ path: "../fonts/pirata-one-latin-400-normal.woff2", weight: "400" }],
+  src: [{ path: "../fonts/graduate-latin-400-normal.woff2", weight: "400" }],
 });
 
 export const metadata: Metadata = {
@@ -61,9 +53,9 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${archivo.variable} ${narrow.variable} ${blackletter.variable} h-full antialiased`}
+      className={`${archivo.variable} ${varsity.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-wall text-paper" suppressHydrationWarning>
+      <body className="flex min-h-full flex-col bg-cream text-ink" suppressHydrationWarning>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>

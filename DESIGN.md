@@ -1,95 +1,89 @@
 ---
 name: Maison Murano
-description: Streetwear storefront as a tattoo flash sheet pinned to a parlour wall
+description: Streetwear storefront on the TIER CLUB structure, dressed in the Tiger Camo hoodie — varsity lettering, camo palette, chrome cross
 colors:
-  wall: "#0e0c0b"
-  wall-2: "#191513"
-  paper: "#ebe2cc"
-  paper-2: "#ddd2b8"
-  ink: "#16110d"
-  flash: "#b8261b"
-  bottle: "#1f5a3e"
-  mustard: "#dca52b"
-  smoke: "#a39a8f"
+  cream: "#eeebe3"
+  secondary: "#e1ddd1"
+  ink: "#151512"
+  olive: "#3c4a2e"
+  olive-deep: "#26301d"
+  khaki: "#b4a47c"
+  rust: "#8f3a1f"
+  muted: "#5f5b52"
 typography:
   display:
-    fontFamily: "Pirata One, serif"
-    fontSize: "clamp(3rem, 8vw, 6rem)"
+    fontFamily: "Graduate, serif"
+    fontSize: "4.5rem"
     fontWeight: 400
-    lineHeight: 0.92
-    letterSpacing: "0em"
-  label:
-    fontFamily: "Archivo Narrow, Archivo, sans-serif"
-    fontSize: "13px"
-    fontWeight: 700
+    lineHeight: 0.95
+    letterSpacing: "0.01em"
+  subline:
+    fontFamily: "Archivo, sans-serif"
+    fontSize: "1.875rem"
+    fontWeight: 600
     lineHeight: 1.2
-    letterSpacing: "0.08em"
   body:
     fontFamily: "Archivo, sans-serif"
-    fontSize: "16px"
+    fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.6
+  nav:
+    fontFamily: "Archivo, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 600
+    lineHeight: 1.2
+    letterSpacing: "0.025em"
 rounded:
   none: "0px"
 spacing:
-  section: "112px"
-  section-mobile: "80px"
+  section: "96px"
+  section-mobile: "64px"
   gutter: "24px"
   gutter-mobile: "16px"
 components:
   button-primary:
-    backgroundColor: "{colors.flash}"
-    textColor: "{colors.paper}"
-    typography: "{typography.label}"
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.cream}"
     rounded: "{rounded.none}"
-    height: "52px"
-  button-primary-hover:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
-  button-ghost-paper:
-    textColor: "{colors.ink}"
-    typography: "{typography.label}"
     height: "48px"
-  size-chip:
-    textColor: "{colors.paper}"
-    typography: "{typography.label}"
-    height: "36px"
-  size-chip-selected:
-    backgroundColor: "{colors.mustard}"
+  button-on-dark:
+    backgroundColor: "{colors.cream}"
     textColor: "{colors.ink}"
-  flash-card:
-    backgroundColor: "{colors.paper}"
+    height: "48px"
+  button-on-dark-hover:
+    backgroundColor: "{colors.khaki}"
+  product-card:
+    backgroundColor: "{colors.secondary}"
     textColor: "{colors.ink}"
     rounded: "{rounded.none}"
 ---
 
 ## Overview
-The site is a tattoo parlour wall at night: a near-black wall (`wall`) carrying pinned flash sheets on paper. Every garment is a numbered flash design (Nº = its place in the brand's release history, oldest = 01). The drop is the sheet you pick from; sold-out designs live in a quieter archive. Real Shopify photography carries the page; the world frames it.
+Built on Daniel's TIER CLUB storefront (same structure, components and rhythm) and dressed in Maison Murano's own Tiger Camo hoodie: the varsity felt lettering of its back becomes the display type, its camo sets the palette, and the brand's eight-facet cross is traced from their logo file and modelled in chrome. Real Shopify photography and the founder's own YouTube carry the content.
 
 ## Colors
-Full palette with named jobs. `wall`/`wall-2` own the ground and quiet bands. `paper` is reserved for flash material: sheets, framed designs, review notes, thumbnails. `flash` red carries the announcement bar, the brand break field, primary actions, design numbers and sold-out stamps. `bottle` green owns the newsletter field and the "picked" stamp. `mustard` is prices on the wall, focus rings, hover fills and selection states. `smoke` is secondary text on the wall (≥6:1 on `wall`).
+Light bone ground (`cream`) with `ink` text and 1px ink borders, as in TIER CLUB. `olive` (camo green) takes TIER's red role: sublines, accents, the newsletter field. `khaki` is hover on dark buttons; `rust` is reserved for errors. Dark bands (`ink`) hold the hero videos and the chrome cross break.
 
 ## Typography
-Pirata One (blackletter, tattoo lettering) for display only, never uppercase, max 6rem. Archivo Narrow 700 uppercase tracked for labels, buttons, numbers and chips. Archivo for body and product names. Numbers use tabular figures.
+Graduate (varsity block, always uppercase) for display: section titles, wordmark, the arched hero lettering. Archivo italic 600 for the subline under each title (TIER's script line). Archivo for body, nav and product names.
 
 ## Layout
-Max width 1280px with 16px / 24px gutters. Sections 80px mobile, 112px desktop. Product grids: 2 columns mobile, 4 on the sheet, 6 in the archive. Horizontal snap rails for lookbook and reviews. Mobile first: the first viewport shows the campaign, the wordmark and the top of the flash sheet.
+TIER CLUB's page order: marquee, sticky centred header, full-bleed video hero, featured grid, lookbook rail, logo break, reviews, founder vlogs, about collage, newsletter, footer. Max width 1280px, 16/24px gutters, 64/96px sections, grids 2 → 4 columns.
 
 ## Elevation & Depth
-Only pinned sheets lift off the wall: soft, offset, blurred shadow (`.sheet-shadow`) plus a slight tilt (−0.5° home, +0.4° about). Everything else is flat.
+Flat. Depth only in the chrome cross (real 3D, WebGL) and the layered spinning cross used for the loader and newsletter.
 
 ## Shapes
-Square corners everywhere. Flash frames are a 2px ink border with an inner paper gap and 1px ink hairline (`.flash-frame`). Brand marks are authored SVG: the flared cross, the banner ribbon, thumbtacks.
+Square corners, 1px ink borders on cards, photos and tiles. The cross mark is exact traced geometry (two facets × mirror × four rotations).
 
 ## Components
-- Flash card: paper frame, cut-out PNGs contained with multiply blend on paper, photos fill; Nº tag top-left on paper; hover swaps to the on-model photo; sold-out gets a rotated red stamp; optional quick-add size grid (4 columns) that stamps "Elegida" and opens the cart.
-- Flash sheet: paper panel with two thumbtacks, blackletter title, ink rule, pinned-in entrance animation (`.animate-pin`).
-- Brand break: red field, slowly spinning 3D cross, two-line manifesto, ink button.
-- Announcement marquee: red band, label type, ink crosses.
+- Hero: three muted looping YouTube Shorts (one on mobile), arched varsity "MAISONMURANO", cross mark, subline, cream CTA.
+- Product card: bordered frame, cut-out PNGs contained on `secondary`, photos fill, hover swaps to the second image, SOLD OUT badge.
+- Chrome cross break: extruded, bevelled, metal cross turning on ink; flat-mark fallback without WebGL or with reduced motion.
+- Vlogs: click-to-play YouTube tiles (no player loads until pressed).
 
 ## Do's and Don'ts
-- Do pull every product fact, price and photo from Shopify; never hardcode catalogue data.
-- Do keep paper for flash material only; the page ground stays the wall.
-- Don't set blackletter in uppercase or below 2rem.
-- Don't add eyebrows/kickers above headings, gradient text or rounded corners.
+- Do keep every product fact, price and photo live from Shopify.
+- Do set display type in Graduate uppercase only; never for body copy.
+- Don't recolour the cross or distort its geometry; use `LogoMark`.
 - Don't invent reviews or stats: only real Judge.me quotes.

@@ -5,9 +5,9 @@ import { useLocale, useTranslations } from "next-intl";
 import { Minus, Plus, X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { SpinningCross } from "@/components/loader/spinning-cross";
+import { SpinningStar } from "@/components/loader/spinning-star";
 import { useCart, cartSubtotal } from "@/lib/cart/store";
-import { formatMoney, isCutout } from "@/lib/shopify";
+import { formatMoney } from "@/lib/shopify";
 
 export function CartView() {
   const t = useTranslations("cart");
@@ -18,8 +18,8 @@ export function CartView() {
   if (lines.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center gap-6 py-24 text-center">
-        <SpinningCross className="h-14 w-10 text-flash" />
-        <h1 className="font-display text-4xl">{t("empty")}</h1>
+        <SpinningStar className="h-12 w-12 text-ink opacity-40" />
+        <h1 className="font-display text-4xl uppercase">{t("empty")}</h1>
         <Button asChild>
           <Link href="/productos">{t("emptyCta")}</Link>
         </Button>
@@ -29,21 +29,21 @@ export function CartView() {
 
   return (
     <>
-      <h1 className="mb-8 font-display text-5xl md:text-7xl">
+      <h1 className="mb-8 font-display text-5xl uppercase md:text-7xl">
         {t("title")}
       </h1>
       <div className="grid gap-10 md:grid-cols-[1fr_320px]">
-        <ul className="flex flex-col divide-y divide-paper/10 border-y border-paper/10">
+        <ul className="flex flex-col divide-y divide-ink/10 border-y border-ink/10">
           {lines.map((line) => (
             <li key={line.variantId} className="flex gap-4 py-4">
-              <div className="flash-paper relative h-32 w-24 shrink-0 overflow-hidden">
+              <div className="relative h-32 w-24 shrink-0 overflow-hidden bg-secondary">
                 {line.image && (
                   <Image
                     src={line.image.url}
                     alt={line.image.altText}
                     fill
                     sizes="96px"
-                    className={isCutout(line.image.url) ? "object-contain p-2 mix-blend-multiply" : "object-cover"}
+                    className="object-cover"
                   />
                 )}
               </div>
@@ -52,7 +52,7 @@ export function CartView() {
                   <div>
                     <Link
                       href={`/productos/${line.productHandle}`}
-                      className="font-semibold hover:text-mustard"
+                      className="font-semibold uppercase hover:text-tc-red"
                     >
                       {line.title}
                     </Link>
@@ -70,7 +70,7 @@ export function CartView() {
                   </button>
                 </div>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center border border-paper/25">
+                  <div className="flex items-center border border-ink/20">
                     <button
                       className="px-2 py-1"
                       aria-label={t("less")}
@@ -102,18 +102,18 @@ export function CartView() {
           ))}
         </ul>
 
-        <aside className="h-fit border border-paper/15 p-6">
+        <aside className="h-fit border border-ink/15 p-6">
           <div className="mb-4 flex items-center justify-between">
-            <span className="font-label text-[13px]">{t("subtotal")}</span>
-            <span className="tabular text-2xl font-semibold">
+            <span className="text-sm font-semibold uppercase">{t("subtotal")}</span>
+            <span className="font-display text-2xl">
               {formatMoney(subtotal, "EUR", locale)}
             </span>
           </div>
-          <p className="mb-6 text-[13px] text-smoke">{t("shippingNote")}</p>
-          <button type="button" disabled className="font-label h-13 w-full bg-flash text-[14px] text-paper opacity-60">
+          <p className="mb-6 text-xs text-muted-foreground">{t("shippingNote")}</p>
+          <Button className="h-12 w-full" size="lg" disabled>
             {t("checkout")}
-          </button>
-          <p className="mt-2 text-[12px] leading-snug text-smoke">{t("demoNote")}</p>
+          </Button>
+          <p className="mt-2 text-xs text-muted-foreground">{t("demoNote")}</p>
         </aside>
       </div>
     </>

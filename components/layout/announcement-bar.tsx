@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { Cross } from "@/components/brand/cross";
+import { LogoMark } from "@/components/brand/logo-mark";
 
 export function AnnouncementBar() {
   const t = useTranslations("announcement");
@@ -7,12 +7,12 @@ export function AnnouncementBar() {
   const loop = [...items, ...items];
 
   return (
-    <div className="overflow-hidden border-b border-paper/10 bg-flash text-paper">
-      <div className="animate-marquee flex w-max items-center gap-7 py-2 whitespace-nowrap [--marquee-duration:46s]">
+    <div className="overflow-hidden border-b border-ink/15 bg-ink text-cream">
+      <div className="animate-marquee flex w-max items-center gap-6 py-2 whitespace-nowrap [--marquee-duration:44s]">
         {loop.map((text, i) => (
-          <span key={i} className="font-label flex items-center gap-7 text-[11px] tracking-[0.16em]" aria-hidden={i >= items.length}>
+          <span key={i} className="flex items-center gap-6 text-xs font-semibold tracking-wider uppercase" aria-hidden={i >= items.length}>
             {text}
-            <Cross className="h-3 w-2 shrink-0 text-ink" />
+            <LogoMark className="h-3 w-3 shrink-0" />
           </span>
         ))}
       </div>

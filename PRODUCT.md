@@ -31,7 +31,8 @@ Maison Murano is a small, emerging Spanish streetwear brand "born in a room": he
 - Name: Maison Murano. Logo files on their Shopify CDN (logo_png.png, logo_MM).
 - Socials: instagram.com/maisonmurano_, tiktok.com/@maisonmurano_, youtube.com/@Pablomurano.
 - Voice: Spanish, direct, aspirational ("a dream in motion", "from the room to the world").
-- Binding brief from Daniel: structure similar to TIER CLUB, but with Maison Murano's own style.
+- Binding brief from Daniel: look and structure close to TIER CLUB; display lettering like the varsity letters on the back of the Tiger Camo hoodie; the mark is their real eight-facet cross logo (traced), shown modelled in 3D chrome like their YouTube/Instagram avatar.
+- Video: the founder's YouTube (youtube.com/@Pablomurano) Shorts and vlogs; the Shopify store itself has no product videos.
 
 ## Evidence on Hand
 - Real product photography and on-model shots via Shopify product images.

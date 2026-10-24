@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Dialog } from "@base-ui/react/dialog";
 import { ArrowRight, Search as SearchIcon, X } from "lucide-react";
 import { Link, useRouter } from "@/i18n/navigation";
-import { formatMoney, isCutout } from "@/lib/shopify";
+import { formatMoney } from "@/lib/shopify";
 import { matchesQuery, type SearchItem } from "@/lib/search";
 
 const MAX_RESULTS = 6;
@@ -18,14 +18,14 @@ export function Search({ items }: { items: SearchItem[] }) {
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger aria-label={t("search")} className="transition-colors hover:text-mustard">
+      <Dialog.Trigger aria-label={t("search")} className="transition-colors hover:text-tc-red">
         <SearchIcon className="h-5 w-5" />
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 z-[60] bg-wall/75 transition-opacity duration-200 data-starting-style:opacity-0 data-ending-style:opacity-0" />
+        <Dialog.Backdrop className="fixed inset-0 z-[60] bg-ink/60 transition-opacity duration-200 data-starting-style:opacity-0 data-ending-style:opacity-0" />
         <Dialog.Popup
           initialFocus={inputRef}
-          className="fixed inset-x-0 top-0 z-[60] max-h-dvh overflow-y-auto border-b-2 border-paper/20 bg-wall text-paper outline-none transition-transform duration-300 ease-out data-starting-style:-translate-y-full data-ending-style:-translate-y-full motion-reduce:transition-none"
+          className="fixed inset-x-0 top-0 z-[60] max-h-dvh overflow-y-auto border-b-2 border-ink bg-background text-ink outline-none transition-transform duration-300 ease-out data-starting-style:-translate-y-full data-ending-style:-translate-y-full motion-reduce:transition-none"
         >
           <Dialog.Title className="sr-only">{t("search")}</Dialog.Title>
           <SearchPanel items={items} inputRef={inputRef} onNavigate={() => setOpen(false)} />
@@ -101,9 +101,9 @@ function SearchPanel({
           enterKeyHint="search"
           autoComplete="off"
           spellCheck={false}
-          className="min-w-0 flex-1 rounded-none border-0 border-b-4 border-paper bg-transparent pb-1 font-display text-5xl leading-tight caret-mustard outline-none placeholder:text-paper/30 md:text-7xl"
+          className="min-w-0 flex-1 rounded-none border-0 border-b-4 border-ink bg-transparent pb-1 font-display text-4xl uppercase leading-tight caret-tc-red outline-none placeholder:text-ink/25 md:text-7xl"
         />
-        <Dialog.Close className="flex h-10 shrink-0 items-center gap-2 border-2 border-paper/40 px-3 text-xs font-semibold uppercase tracking-wide transition-colors hover:bg-paper hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mustard">
+        <Dialog.Close className="flex h-10 shrink-0 items-center gap-2 border-2 border-ink px-3 text-xs font-semibold uppercase tracking-wide transition-colors hover:bg-ink hover:text-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink">
           <X className="h-4 w-4" />
           <span className="sr-only sm:not-sr-only">{t("close")}</span>
         </Dialog.Close>
@@ -125,21 +125,21 @@ function SearchPanel({
                   tabIndex={-1}
                   href={`/productos/${item.handle}`}
                   onClick={onNavigate}
-                  className="group flex items-center gap-4 border-b border-paper/15 py-3 md:block md:border-0 md:py-0"
+                  className="group flex items-center gap-4 border-b border-ink/15 py-3 md:block md:border-0 md:py-0"
                 >
-                  <div className="relative aspect-[4/5] w-16 shrink-0 overflow-hidden flash-paper border border-ink outline-offset-2 group-hover:outline-2 group-hover:outline-paper group-aria-selected:outline-2 group-aria-selected:outline-mustard md:w-full">
+                  <div className="relative aspect-[4/5] w-16 shrink-0 overflow-hidden border border-ink bg-secondary outline-offset-2 group-hover:outline-2 group-hover:outline-ink group-aria-selected:outline-2 group-aria-selected:outline-tc-red md:w-full">
                     {item.image && (
                       <Image
                         src={item.image.url}
                         alt=""
                         fill
                         sizes="(max-width: 768px) 64px, 16vw"
-                        className={isCutout(item.image.url) ? "object-contain p-[10%] mix-blend-multiply" : "object-cover"}
+                        className="object-cover"
                       />
                     )}
                   </div>
                   <div className="min-w-0 flex-1 md:mt-3">
-                    <p className="truncate text-sm font-semibold group-hover:text-mustard group-aria-selected:text-mustard">
+                    <p className="truncate text-sm font-semibold uppercase group-hover:text-tc-red group-aria-selected:text-tc-red">
                       {item.title}
                     </p>
                     <p className="text-sm">
@@ -153,7 +153,7 @@ function SearchPanel({
           <Link
             href={allResults}
             onClick={onNavigate}
-            className="mt-6 inline-flex items-center gap-2 border-b-2 border-paper pb-1 text-sm font-semibold transition-colors hover:border-mustard hover:text-mustard md:mt-8"
+            className="mt-6 inline-flex items-center gap-2 border-b-2 border-ink pb-1 text-sm font-semibold uppercase transition-colors hover:border-tc-red hover:text-tc-red md:mt-8"
           >
             {t("viewAll", { count: matches.length })}
             <ArrowRight className="h-4 w-4" />
@@ -163,12 +163,12 @@ function SearchPanel({
 
       {q && shown.length === 0 && (
         <div className="pb-8 md:pb-12">
-          <p className="break-words font-display text-4xl md:text-5xl">{t.rich("empty", { query: q, q: (chunks) => <span className="text-mustard">{chunks}</span> })}</p>
+          <p className="break-words font-display text-2xl uppercase md:text-4xl">{t.rich("empty", { query: q, q: (chunks) => <span className="text-tc-red">{chunks}</span> })}</p>
           <p className="mt-2 text-sm text-muted-foreground">{t("emptyHint")}</p>
           <Link
             href="/productos"
             onClick={onNavigate}
-            className="mt-6 inline-flex items-center gap-2 border-b-2 border-paper pb-1 text-sm font-semibold transition-colors hover:border-mustard hover:text-mustard"
+            className="mt-6 inline-flex items-center gap-2 border-b-2 border-ink pb-1 text-sm font-semibold uppercase transition-colors hover:border-tc-red hover:text-tc-red"
           >
             {t("browseAll")}
             <ArrowRight className="h-4 w-4" />

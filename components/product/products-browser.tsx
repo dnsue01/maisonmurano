@@ -33,15 +33,13 @@ export function ProductsBrowser({ products }: { products: Product[] }) {
     }
     if (availability === "in") list = list.filter((p) => p.available);
     if (availability === "out") list = list.filter((p) => !p.available);
-    // Available designs first, sold-out archive after.
-    const sorted = sortProducts(list, sort);
-    return [...sorted.filter((p) => p.available), ...sorted.filter((p) => !p.available)];
+    return sortProducts(list, sort);
   }, [products, query, sort, availability]);
 
   return (
     <div>
-      <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-paper/15 pb-4">
-        <p className="font-label tabular text-[13px] text-smoke">
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-ink/15 pb-4">
+        <p className="text-sm text-muted-foreground">
           {query ? `${t("searchResults", { query })} · ` : ""}
           {t("results", { count: visible.length })}
           {query && (
@@ -89,7 +87,7 @@ export function ProductsBrowser({ products }: { products: Product[] }) {
       {visible.length === 0 ? (
         <p className="py-20 text-center text-muted-foreground">{t("empty")}</p>
       ) : (
-        <ProductGrid products={visible} catalog={products} />
+        <ProductGrid products={visible} />
       )}
     </div>
   );

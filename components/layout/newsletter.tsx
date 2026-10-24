@@ -2,11 +2,13 @@
 
 import { useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
-import { Cross } from "@/components/brand/cross";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { SpinningStar } from "@/components/loader/spinning-star";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/** Drop alerts sign-up. Presentational in the proposal: wired to Shopify customers once the brand gives API access. */
+/** Drop alerts. Presentational in the proposal: wired to Shopify customers once the brand gives API access. */
 export function Newsletter() {
   const t = useTranslations("newsletter");
   const [done, setDone] = useState(false);
@@ -21,34 +23,30 @@ export function Newsletter() {
   }
 
   return (
-    <section id="newsletter" className="scroll-mt-24 border-t border-paper/10 bg-bottle px-4 py-20 text-paper md:py-28">
+    <section id="newsletter" className="scroll-mt-24 border-y border-cream/20 bg-olive px-4 py-16 text-cream md:py-24">
       <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
-        <Cross className="mb-6 h-12 w-9 text-mustard" />
-        <h2 className="font-display text-[clamp(3.25rem,9vw,6rem)]">{t("title")}</h2>
-        <p className="mt-4 max-w-md text-[16px] leading-relaxed text-paper/85">{t("subtitle")}</p>
+        <SpinningStar className="mb-6 h-12 w-12 text-cream" />
+        <h2 className="font-display text-4xl md:text-6xl">{t("title")}</h2>
+        <p className="mt-3 max-w-md text-sm text-cream/80">{t("subtitle")}</p>
 
         {done ? (
-          <p className="font-label mt-9 text-[15px] text-mustard" role="status">{t("success")}</p>
+          <p className="font-script mt-8 text-2xl text-khaki" role="status">{t("success")}</p>
         ) : (
-          <form onSubmit={onSubmit} noValidate className="mt-9 flex w-full max-w-md flex-col gap-2 sm:flex-row">
-            <label htmlFor="nl-email" className="sr-only">Email</label>
-            <input
-              id="nl-email"
+          <form onSubmit={onSubmit} noValidate className="mt-8 flex w-full max-w-md flex-wrap justify-center gap-2">
+            <Input
               type="email"
               name="email"
               required
               autoComplete="email"
-              placeholder={t("placeholder")}
+              aria-label="Email"
               aria-invalid={error}
-              className="h-13 flex-1 border-2 border-paper/50 bg-transparent px-4 text-[16px] text-paper placeholder:text-paper/55 focus:border-mustard focus:outline-none"
+              placeholder={t("placeholder")}
+              className="h-12 flex-1 border-cream/40 bg-transparent text-cream placeholder:text-cream/50"
             />
-            <button
-              type="submit"
-              className="font-label h-13 border-2 border-paper bg-paper px-7 text-[13px] text-ink transition-colors hover:border-mustard hover:bg-mustard"
-            >
+            <Button type="submit" size="lg" className="h-12 bg-cream px-6 text-ink hover:bg-khaki">
               {t("cta")}
-            </button>
-            {error && <p className="w-full text-left text-[13px] text-mustard sm:order-last">{t("error")}</p>}
+            </Button>
+            {error && <p className="w-full text-xs text-khaki">{t("error")}</p>}
           </form>
         )}
       </div>

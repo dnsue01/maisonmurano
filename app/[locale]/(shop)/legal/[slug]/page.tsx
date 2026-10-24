@@ -38,7 +38,7 @@ export default async function LegalPage({
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-16 md:px-6">
-      <h1 className="mb-8 font-display text-4xl md:text-6xl">{policy.title}</h1>
+      <h1 className="mb-8 font-display text-4xl uppercase md:text-6xl">{policy.title}</h1>
       <div className="shopify-rte" dangerouslySetInnerHTML={{ __html: policy.html }} />
     </div>
   );

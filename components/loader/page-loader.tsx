@@ -2,23 +2,22 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { SpinningCross } from "@/components/loader/spinning-cross";
+import { SpinningStar } from "@/components/loader/spinning-star";
 
-/** Intro: the cross turning on the wall, once per session. */
+/**
+ * Full-screen intro loader: only the spinning Maison Murano cross.
+ * Shows once per session on first paint, then fades out.
+ */
 export function PageLoader() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    let seen = false;
-    try {
-      seen = sessionStorage.getItem("mm-loaded") === "1";
-    } catch {}
-    const t = setTimeout(() => {
-      try {
-        sessionStorage.setItem("mm-loaded", "1");
-      } catch {}
+    const alreadyLoaded = sessionStorage.getItem("mm-loaded");
+    const done = () => {
+      sessionStorage.setItem("mm-loaded", "1");
       setVisible(false);
-    }, seen ? 0 : 1300);
+    };
+    const t = setTimeout(done, alreadyLoaded ? 0 : 1600);
     return () => clearTimeout(t);
   }, []);
 
@@ -28,10 +27,10 @@ export function PageLoader() {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-wall"
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-ink"
         >
-          <SpinningCross className="h-28 w-20 text-flash" />
+          <SpinningStar className="h-28 w-28 text-cream" />
         </motion.div>
       )}
     </AnimatePresence>

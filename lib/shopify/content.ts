@@ -14,7 +14,8 @@ const SIZE_GUIDE_HANDLE = "guia-de-tallas";
 
 async function fetchStore(path: string): Promise<Response | null> {
   if (!SHOPIFY_DOMAIN) throw new Error("SHOPIFY_STORE_DOMAIN is not set.");
-  const res = await fetch(`${SHOPIFY_ORIGIN}${path}`, { next: { revalidate: REVALIDATE } });
+  const res = await fetch(`${SHOPIFY_ORIGIN}${path}`, { next: { revalidate: REVALIDATE } }).catch(() => null);
+  if (!res) return null;
   return res.ok ? res : null;
 }
 

@@ -14,7 +14,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
     <div className={cn("flex items-center gap-1 text-xs font-semibold", className)}>
       {routing.locales.map((loc, i) => (
         <span key={loc} className="flex items-center gap-1">
-          {i > 0 && <span className="text-paper/30">/</span>}
+          {i > 0 && <span className="text-ink/30">/</span>}
           <button
             type="button"
             onClick={() => router.replace(pathname, { locale: loc })}

@@ -18,11 +18,13 @@ export default async function ProductsPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("products");
-  const products = await shopify.getProducts().catch(() => []);
+  const products = await shopify.getProducts();
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 md:px-6">
-      <h1 className="font-display mb-9 text-7xl md:text-9xl">{t("title")}</h1>
+      <h1 className="mb-8 font-display text-6xl uppercase md:text-8xl">
+        {t("title")}
+      </h1>
       <Suspense fallback={<ProductGrid products={products} />}>
         <ProductsBrowser products={products} />
       </Suspense>
