@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "source": "DESIGN.md",
+  "shadows": { "sheet": "0 30px 60px -20px rgba(0,0,0,.75), 0 8px 18px -6px rgba(0,0,0,.55)" },
+  "motion": {
+    "pin": "mm-pin 0.9s cubic-bezier(0.16,1,0.3,1)",
+    "stamp": "mm-stamp 1.3s cubic-bezier(0.16,1,0.3,1)",
+    "marquee": "46s linear infinite",
+    "crossSpin": "2.4s linear infinite rotateY"
+  },
+  "focus": { "outline": "2px solid #dca52b", "offset": "3px" },
+  "texture": { "paper": "SVG fractalNoise baseFrequency 0.9, ink alpha 0.09" }
+}
