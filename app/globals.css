@@ -1,0 +1,280 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-archivo);
+  --font-narrow: var(--font-archivo-narrow);
+  --font-heading: var(--font-blackletter);
+
+  /* Maison Murano — tattoo flash world */
+  --color-wall: #0e0c0b;
+  --color-wall-2: #191513;
+  --color-paper: #ebe2cc;
+  --color-paper-2: #ddd2b8;
+  --color-ink: #16110d;
+  --color-flash: #b8261b;
+  --color-bottle: #1f5a3e;
+  --color-mustard: #dca52b;
+  --color-smoke: #a39a8f;
+  /* legacy aliases used by shadcn pieces */
+  --color-cream: #ebe2cc;
+  --color-tc-red: #b8261b;
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+:root {
+  --background: #0e0c0b;
+  --foreground: #ebe2cc;
+  --card: #191513;
+  --card-foreground: #ebe2cc;
+  --popover: #191513;
+  --popover-foreground: #ebe2cc;
+  --primary: #b8261b;
+  --primary-foreground: #f6efdc;
+  --secondary: #191513;
+  --secondary-foreground: #ebe2cc;
+  --muted: #191513;
+  --muted-foreground: #a39a8f;
+  --accent: #dca52b;
+  --accent-foreground: #16110d;
+  --destructive: #e0543f;
+  --border: rgba(235, 226, 204, 0.16);
+  --input: rgba(235, 226, 204, 0.28);
+  --ring: #dca52b;
+  --radius: 0rem;
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+  ::selection {
+    background: var(--color-flash);
+    color: var(--color-paper);
+  }
+  input,
+  textarea {
+    caret-color: var(--color-mustard);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-mustard);
+    outline-offset: 3px;
+  }
+  html {
+    scrollbar-color: #3a322c var(--color-wall);
+  }
+}
+
+@layer components {
+  .font-display {
+    font-family: var(--font-heading), serif;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 0.92;
+    text-transform: none;
+  }
+  .font-label {
+    font-family: var(--font-narrow), var(--font-archivo), sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  /* Flash paper: faint grain + double drawn border */
+  .flash-paper {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    /* Paper fibre: fractal noise, multiplied over the stock colour */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0 0.05 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .flash-frame {
+    border: 2px solid var(--color-ink);
+    box-shadow: inset 0 0 0 4px var(--color-paper), inset 0 0 0 5px var(--color-ink);
+  }
+  .sheet-shadow {
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.75), 0 8px 18px -6px rgba(0, 0, 0, 0.55);
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  /* Outlined display type — aggressive streetwear look */
+  .text-stroke-cream {
+    -webkit-text-stroke: 2px var(--color-cream);
+    color: transparent;
+  }
+  .text-stroke-red {
+    -webkit-text-stroke: 2px var(--color-tc-red);
+    color: transparent;
+  }
+  /* HTML written in the Shopify admin (legal policies, size guide) */
+  .shopify-rte {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--muted-foreground);
+  }
+  .shopify-rte > * + * {
+    margin-top: 1rem;
+  }
+  .shopify-rte h2,
+  .shopify-rte h3 {
+    margin-top: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--foreground);
+  }
+  .shopify-rte h2 {
+    font-size: 1.125rem;
+  }
+  .shopify-rte h3 {
+    font-size: 1rem;
+  }
+  .shopify-rte ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+  .shopify-rte a {
+    color: var(--foreground);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .shopify-rte b,
+  .shopify-rte strong {
+    color: var(--foreground);
+  }
+  .shopify-rte .meta {
+    font-size: 0.75rem;
+  }
+  .shopify-rte .kv {
+    margin-top: 0.25rem;
+  }
+  .shopify-rte .form {
+    border: 1px solid var(--border);
+    padding: 1rem;
+  }
+  .shopify-rte .fl {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-end;
+    padding-top: 0.75rem;
+  }
+  .shopify-rte .fl i {
+    flex: 1;
+    border-bottom: 1px solid var(--foreground);
+  }
+  .shopify-rte table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  .shopify-rte th,
+  .shopify-rte td {
+    border: 1px solid var(--border);
+    padding: 0.5rem;
+  }
+  .shopify-rte th {
+    background: var(--secondary);
+    color: var(--foreground);
+    font-weight: 700;
+  }
+  /* Logo lockups render red per brand direction */
+  .shopify-rte { color: var(--color-smoke); }
+}
+
+/* Marquee for the announcement bar */
+@keyframes tc-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: tc-marquee var(--marquee-duration, 30s) linear infinite;
+}
+
+/* Spinning loader logo — 3D turn around the vertical axis */
+@keyframes tc-spin {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+.animate-tc-spin {
+  animation: tc-spin 2.4s linear infinite;
+}
+/* Signature motion: the flash sheet gets pinned to the wall */
+@keyframes mm-pin {
+  from {
+    opacity: 0;
+    transform: translateY(36px) rotate(-2.4deg);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(var(--tilt, -0.6deg));
+    filter: blur(0);
+  }
+}
+.animate-pin {
+  transform: rotate(var(--tilt, -0.6deg));
+  animation: mm-pin 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+/* "Picked" stamp when a piece goes to the cart */
+@keyframes mm-stamp {
+  0% { opacity: 0; transform: translate(-50%, -50%) rotate(-14deg) scale(1.8); }
+  35% { opacity: 1; transform: translate(-50%, -50%) rotate(-14deg) scale(0.94); }
+  60% { transform: translate(-50%, -50%) rotate(-14deg) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) rotate(-14deg) scale(1); }
+}
+.animate-stamp {
+  animation: mm-stamp 1.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-pin,
+  .animate-stamp,
+  .animate-marquee,
+  .animate-tc-spin {
+    animation: none !important;
+  }
+}

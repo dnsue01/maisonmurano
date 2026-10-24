@@ -1,0 +1,9 @@
+*.zip
+*.opdownload
+.env*
+!.env.example
+.claude
+docs
+presentation
+
+
