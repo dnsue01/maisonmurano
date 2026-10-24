@@ -33,7 +33,9 @@ export function ProductsBrowser({ products }: { products: Product[] }) {
     }
     if (availability === "in") list = list.filter((p) => p.available);
     if (availability === "out") list = list.filter((p) => !p.available);
-    return sortProducts(list, sort);
+    // Available designs first, sold-out after (each group keeps the chosen order).
+    const sorted = sortProducts(list, sort);
+    return [...sorted.filter((p) => p.available), ...sorted.filter((p) => !p.available)];
   }, [products, query, sort, availability]);
 
   return (

@@ -41,7 +41,8 @@ export default async function ProductPage({
   if (!product) notFound();
 
   const all = await shopify.getProducts();
-  const related = all.filter((p) => p.handle !== handle).slice(0, 4);
+  const others = all.filter((p) => p.handle !== handle);
+  const related = [...others.filter((p) => p.available), ...others.filter((p) => !p.available)].slice(0, 4);
   const onSale = !!product.compareAtPrice;
   const sizeGuide = product.isGiftCard ? null : await getSizeGuide();
   const description = locale === "es" ? product.descriptionEs : product.description;
