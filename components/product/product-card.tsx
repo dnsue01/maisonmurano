@@ -25,10 +25,11 @@ export function ProductCard({ product }: { product: Product }) {
         {product.images[1] && (
           <Image
             src={product.images[1].url}
-            alt={product.images[1].altText}
+            alt=""
+            quality={60}
             fill
             sizes="(max-width: 768px) 50vw, 25vw"
-            className="scale-105 object-cover opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100"
+            className="hidden scale-105 object-cover opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 md:block"
           />
         )}
         <div className="absolute left-2 top-2 flex flex-col gap-1">

@@ -60,3 +60,6 @@ export const pad = (n: number) => String(n).padStart(2, "0");
 
 /** Cut-out product shots (transparent PNGs) sit on the paper; photos fill the frame. */
 export const isCutout = (url: string) => /\.png(\?|$)/i.test(url);
+
+/** Shopify names the only variant of a one-size product "Default Title". */
+export const isOneSize = (variantTitle: string) => /^default title$/i.test(variantTitle.trim());

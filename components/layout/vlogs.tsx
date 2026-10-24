@@ -10,7 +10,8 @@ import { VLOGS, CHANNEL_URL, embedUrl, thumb } from "@/lib/videos";
  */
 export function Vlogs({ title, subtitle, cta }: { title: string; subtitle: string; cta: string }) {
   const [playing, setPlaying] = useState<string | null>(null);
-  const [main, ...rest] = VLOGS;
+  // The ScrapWorld vlog lives in its own section; keep the rest here.
+  const [main, ...rest] = VLOGS.filter((v) => v.id !== "N4rZDXc0cuU");
 
   const Tile = ({ v, big = false }: { v: (typeof VLOGS)[number]; big?: boolean }) => (
     <div className={`relative aspect-video overflow-hidden border border-ink bg-ink ${big ? "md:row-span-2" : ""}`}>
@@ -19,13 +20,14 @@ export function Vlogs({ title, subtitle, cta }: { title: string; subtitle: strin
           src={embedUrl(v.id)}
           title={v.title}
           allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
           className="absolute inset-0 h-full w-full border-0"
         />
       ) : (
         <button type="button" onClick={() => setPlaying(v.id)} className="group absolute inset-0 text-left" aria-label={`Ver: ${v.title}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={thumb(v.id)} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
+          <img src={big ? thumb(v.id) : `https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
           <span className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent" />
           <span className="absolute left-4 top-4 flex h-12 w-12 items-center justify-center rounded-full bg-cream text-ink transition-transform duration-300 group-hover:scale-110">
             <Play className="ml-0.5 h-5 w-5 fill-current" />

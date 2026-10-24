@@ -42,7 +42,8 @@
     "aboutText": "Nació en una habitación: no en una oficina ni en una gran ciudad, sino donde los sueños se convierten en planes.",
     "aboutLore": "Bocetos, ideas y noches sin dormir. Ropa con intención para los que no esperan el momento perfecto: lo crean.",
     "aboutClose": "De una habitación al mundo.",
-    "aboutCta": "Conócenos"
+    "aboutCta": "Conócenos",
+    "heroBadge": "Ganadores BBVA × ScrapWorld 2026"
   },
   "products": {
     "title": "La colección",
@@ -81,9 +82,10 @@
     "details": "Detalles",
     "shipping": "Envíos",
     "shippingText": "Envío nacional en 24–48 h. Internacional en 5–14 días. Todas las ventas son finales.",
-    "youMayLike": "Más del flash",
+    "youMayLike": "También te puede gustar",
     "quickAdd": "Añadir talla {size}",
-    "pieces": "{count, plural, one {# pieza} other {# piezas}}"
+    "pieces": "{count, plural, one {# pieza} other {# piezas}}",
+    "oneSize": "Talla única"
   },
   "cart": {
     "title": "Tu carrito",
@@ -139,5 +141,16 @@
     "mission": "Inspirar a una generación de soñadores que trabajan. Ser algo más que ropa: un símbolo de propósito, esfuerzo y autenticidad.",
     "close": "Si estás leyendo esto, ya formas parte.",
     "cta": "Ver la colección"
+  },
+  "scrapworld": {
+    "badge": "La Base Awards · BBVA × ScrapWorld 2026",
+    "title": "De la habitación a ScrapWorld",
+    "subtitle": "Una de las 3 marcas ganadoras",
+    "text": "Maison Murano fue elegida entre 130 proyectos en La Base Awards Jóvenes Emprendedores de BBVA y ScrapWorld, y llevó la colección al espacio La Base by BBVA en ScrapWorld 2026, en IFEMA Madrid.",
+    "statWinnersLabel": "Ganadores",
+    "statProjectsLabel": "Proyectos",
+    "statWhereLabel": "Madrid",
+    "link": "Ver la iniciativa en BBVA",
+    "videoTitle": "Mi primer Scrapworld con mi marca de ropa"
   }
 }

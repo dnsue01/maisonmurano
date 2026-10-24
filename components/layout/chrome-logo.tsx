@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { LogoMark, LOGO_FACETS, LOGO_TRANSFORMS } from "@/components/brand/logo-mark";
 import { cn } from "@/lib/utils";
+import { isSlowConnection } from "@/lib/connection";
 
 /**
  * The Maison Murano cross modelled in 3D: the traced facets are extruded with
@@ -17,14 +18,25 @@ export function ChromeLogo({ className }: { className?: string }) {
   useEffect(() => {
     const el = host.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || isSlowConnection()) {
       setFallback(true);
       return;
     }
     let disposed = false;
     let cleanup = () => {};
 
-    (async () => {
+    // three.js (~150 KB gzip) only loads when the section gets near the viewport.
+    const near = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        near.disconnect();
+        void build();
+      },
+      { rootMargin: "400px" }
+    );
+    near.observe(el);
+
+    const build = async () => {
       const THREE = await import("three");
       const { SVGLoader } = await import("three/examples/jsm/loaders/SVGLoader.js");
       const { RoomEnvironment } = await import("three/examples/jsm/environments/RoomEnvironment.js");
@@ -119,10 +131,11 @@ export function ChromeLogo({ className }: { className?: string }) {
         renderer.dispose();
         renderer.domElement.remove();
       };
-    })();
+    };
 
     return () => {
       disposed = true;
+      near.disconnect();
       cleanup();
     };
   }, []);

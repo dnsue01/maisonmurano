@@ -14,10 +14,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { SpinningStar } from "@/components/loader/spinning-star";
 import { useCart, cartSubtotal } from "@/lib/cart/store";
-import { formatMoney, isCutout } from "@/lib/shopify";
+import { formatMoney, isCutout, isOneSize } from "@/lib/shopify";
 
 export function CartDrawer() {
   const t = useTranslations("cart");
+  const tp = useTranslations("product");
   const locale = useLocale();
   const { lines, isOpen, close, setQuantity, removeLine } = useCart();
   const subtotal = cartSubtotal(lines);
@@ -61,7 +62,7 @@ export function CartDrawer() {
                           <p className="text-sm font-semibold">{line.title}</p>
                           {!line.isGiftCard && (
                             <p className="text-xs text-muted-foreground">
-                              {t("size")}: {line.variantTitle}
+                              {t("size")}: {isOneSize(line.variantTitle) ? tp("oneSize") : line.variantTitle}
                             </p>
                           )}
                         </div>

@@ -13,6 +13,7 @@ import { SpinningLogoSection } from "@/components/layout/video-break";
 import { Lookbook } from "@/components/layout/lookbook";
 import { HeroVideos } from "@/components/layout/hero-videos";
 import { Vlogs } from "@/components/layout/vlogs";
+import { Scrapworld } from "@/components/layout/scrapworld";
 
 export default async function HomePage({
   params,
@@ -31,12 +32,18 @@ export default async function HomePage({
 
   return (
     <>
-      {/* HERO — the brand's own Shorts looping behind the varsity wordmark */}
+      {/* HERO — the brand's stand at ScrapWorld 2026, looping behind the varsity wordmark */}
       <section className="relative overflow-hidden border-b border-ink bg-ink text-cream">
         <HeroVideos />
-        <div className="absolute inset-0 bg-ink/45" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/35 to-ink/70" />
         <div className="relative mx-auto flex min-h-[88vh] max-w-7xl flex-col items-center justify-center px-4 py-20 text-center">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.4em] text-cream/75">{t("heroTagline")}</p>
+          <a
+            href="#scrapworld"
+            className="mb-4 inline-flex items-center gap-2 border border-cream/50 bg-ink/40 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-cream backdrop-blur-sm transition-colors hover:bg-cream hover:text-ink"
+          >
+            <LogoMark className="h-3.5 w-3.5" />
+            {t("heroBadge")}
+          </a>
           <h1 className="w-full max-w-4xl">
             <ArchedWordmark className="text-cream drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)]" />
           </h1>
@@ -66,6 +73,10 @@ export default async function HomePage({
           </Button>
         </div>
       </section>
+
+      <div id="scrapworld" className="scroll-mt-20">
+        <Scrapworld />
+      </div>
 
       <Lookbook title={t("lookbookTitle")} prevLabel={t("lookbookPrev")} nextLabel={t("lookbookNext")} photos={photos} />
 

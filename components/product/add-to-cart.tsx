@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { useCart } from "@/lib/cart/store";
 import { cn } from "@/lib/utils";
-import { formatMoney, type Product } from "@/lib/shopify";
+import { formatMoney, type Product, isOneSize } from "@/lib/shopify";
 
 /**
  * Price, description (children), variant picker and add button. They share
@@ -29,7 +29,9 @@ export function AddToCart({
   const t = useTranslations("product");
   const locale = useLocale();
   const addLine = useCart((s) => s.addLine);
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(
+    product.variants.length === 1 && product.variants[0].available ? product.variants[0].id : null
+  );
   const [error, setError] = useState(false);
 
   const variant = product.variants.find((v) => v.id === selected);
@@ -92,7 +94,7 @@ export function AddToCart({
                     "cursor-not-allowed border-ink/10 text-ink/30 line-through hover:border-ink/10"
                 )}
               >
-                {v.title}
+                {isOneSize(v.title) ? t("oneSize") : v.title}
               </button>
             ))}
           </div>

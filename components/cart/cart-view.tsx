@@ -7,10 +7,11 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { SpinningStar } from "@/components/loader/spinning-star";
 import { useCart, cartSubtotal } from "@/lib/cart/store";
-import { formatMoney } from "@/lib/shopify";
+import { formatMoney, isOneSize } from "@/lib/shopify";
 
 export function CartView() {
   const t = useTranslations("cart");
+  const tp = useTranslations("product");
   const locale = useLocale();
   const { lines, setQuantity, removeLine } = useCart();
   const subtotal = cartSubtotal(lines);
@@ -58,7 +59,7 @@ export function CartView() {
                     </Link>
                     {!line.isGiftCard && (
                       <p className="text-sm text-muted-foreground">
-                        {t("size")}: {line.variantTitle}
+                        {t("size")}: {isOneSize(line.variantTitle) ? tp("oneSize") : line.variantTitle}
                       </p>
                     )}
                   </div>
