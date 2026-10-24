@@ -11,7 +11,7 @@ import { ProductGrid } from "@/components/product/product-grid";
 import { Newsletter } from "@/components/layout/newsletter";
 import { SpinningLogoSection } from "@/components/layout/video-break";
 import { Lookbook } from "@/components/layout/lookbook";
-import { HeroVideos } from "@/components/layout/hero-videos";
+import { HeroCollage } from "@/components/layout/hero-collage";
 import { Vlogs } from "@/components/layout/vlogs";
 import { Scrapworld } from "@/components/layout/scrapworld";
 
@@ -28,14 +28,17 @@ export default async function HomePage({
   const ordered = [...products.filter((p) => p.available), ...products.filter((p) => !p.available)];
   const featured = ordered.slice(0, 4);
   const photos = editorialPhotos(products);
+  // Up to 3 shots per piece for the hero collage.
+  const heroPhotos = editorialPhotos(products, 3).slice(0, 16);
   const collage = photos.slice(2, 5);
 
   return (
     <>
-      {/* HERO — the brand's stand at ScrapWorld 2026, looping behind the varsity wordmark */}
+      {/* HERO — collage of the brand's own photos behind the varsity wordmark */}
       <section className="relative overflow-hidden border-b border-ink bg-ink text-cream">
-        <HeroVideos />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/35 to-ink/70" />
+        <HeroCollage photos={heroPhotos} />
+        <div className="absolute inset-0 bg-ink/55" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(21,21,18,0.55)_0%,rgba(21,21,18,0)_70%)]" />
         <div className="relative mx-auto flex min-h-[88vh] max-w-7xl flex-col items-center justify-center px-4 py-20 text-center">
           <a
             href="#scrapworld"
@@ -119,13 +122,22 @@ export default async function HomePage({
         <div className="mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-2">
           {collage.length === 3 && (
             <div className="grid grid-cols-2 gap-3">
-              <div className="relative col-span-2 aspect-[16/10] overflow-hidden border border-ink">
-                <Image src={collage[0].src} alt={collage[0].alt} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
-              </div>
+              <Link
+                href={`/productos/${collage[0].handle}`}
+                aria-label={collage[0].title}
+                className="group relative col-span-2 aspect-[16/10] overflow-hidden border border-ink"
+              >
+                <Image src={collage[0].src} alt={collage[0].alt} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+              </Link>
               {collage.slice(1).map((c) => (
-                <div key={c.src} className="relative aspect-[3/4] overflow-hidden border border-ink">
-                  <Image src={c.src} alt={c.alt} fill sizes="(max-width: 768px) 50vw, 25vw" className="object-cover" />
-                </div>
+                <Link
+                  key={c.src}
+                  href={`/productos/${c.handle}`}
+                  aria-label={c.title}
+                  className="group relative aspect-[3/4] overflow-hidden border border-ink"
+                >
+                  <Image src={c.src} alt={c.alt} fill sizes="(max-width: 768px) 50vw, 25vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                </Link>
               ))}
             </div>
           )}

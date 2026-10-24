@@ -238,3 +238,21 @@
     animation: none !important;
   }
 }
+
+/* Hero collage: columns drift vertically and loop (content is doubled) */
+@keyframes mm-collage {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+.animate-collage {
+  animation: mm-collage var(--collage-duration, 70s) linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-collage {
+    animation: none !important;
+  }
+}
